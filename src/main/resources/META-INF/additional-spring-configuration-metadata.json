@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "LOG_DIR",
+      "type": "java.lang.String",
+      "description": "Description for LOG_DIR."
+    },
+    {
+      "name": "LOG_PATH",
+      "type": "java.lang.String",
+      "description": "Description for LOG_PATH."
+    }
+  ] }

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itsrv.myhomework.course2.entity.Employee;
-import ru.itsrv.myhomework.course2.service.impl.DepartmentsServiceImpl;
+import ru.itsrv.myhomework.course2.service.DepartmentsService;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ import java.util.List;
 @RequestMapping("/departments")
 public class DepartmentsController {
 
-    private final DepartmentsServiceImpl departmentsService;
+    private final DepartmentsService departmentsService;
 
-
-    public DepartmentsController(DepartmentsServiceImpl departmentsService) {
+    public DepartmentsController(DepartmentsService departmentsService) {
         this.departmentsService = departmentsService;
     }
 
+
     // /departments/max-salary?departmentId=5
     @GetMapping("/max-salary")
-    public Employee getMaxSalaryEmployeeByDepartment(@RequestParam(name = "departmentId") Integer departmentId) {
+    public List<Employee> getMaxSalaryEmployeeByDepartment(@RequestParam(name = "departmentId") Integer departmentId) {
         return departmentsService.getMaxSalaryEmployeeByDepartment(departmentId);
     }
 
     // /departments/min-salary?departmentId=5
     @GetMapping("/min-salary")
-    public Employee getMixSalaryEmployeeByDepartment(@RequestParam(name = "departmentId") Integer departmentId) {
+    public List<Employee> getMixSalaryEmployeeByDepartment(@RequestParam(name = "departmentId") Integer departmentId) {
         return departmentsService.getMixSalaryEmployeeByDepartment(departmentId);
     }
 
@@ -43,5 +43,7 @@ public class DepartmentsController {
     public List<Employee> getAllEmployee() {
         return departmentsService.getAllEmployee();
     }
+
+
 
 }

@@ -1,19 +1,18 @@
 package ru.itsrv.myhomework.course2.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.itsrv.myhomework.course2.entity.Employee;
-import ru.itsrv.myhomework.course2.service.impl.EmployeeServiceImpl;
+import ru.itsrv.myhomework.course2.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
 
-    private final EmployeeServiceImpl employeeService;
+    private final EmployeeService employeeService;
 
-    @Autowired
-    public EmployeeController(EmployeeServiceImpl employeeService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -27,9 +26,15 @@ public class EmployeeController {
         return employeeService.findEmployee(firstName, lastName, patronymic);
     }
 
+    //    @GetMapping(value = "/find/{id}")
+//    public Employee findById(@PathVariable Long id) {
+//        return employeeService.findById(id);
+//    }
     @GetMapping(value = "/find/{id}")
-    public Employee findById(@PathVariable Long id) {
-        return employeeService.findById(id);
+    public ResponseEntity<Employee> findById(@PathVariable Long id) {
+        return employeeService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/add")
